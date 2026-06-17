@@ -22,17 +22,25 @@
 
   <link rel="stylesheet" href="/site.css">
   <link rel="stylesheet" href="/zebragomoku.css">
+  <!-- Chinese web fonts: 毛笔 (Long Cang) + 楷书 (Ma Shan Zheng) for the
+       masthead/heading/brand. Safe-fallback to local KaiTi/FangSong. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Long+Cang&family=Ma+Shan+Zheng&display=swap">
   <style>
-    /* Reserve square canvas; on narrow screens scale 1:1 with viewport. */
+    /* Reserve square canvas; on narrow screens scale 1:1 with viewport.
+       Board is 520×520 (down from 800×800 so it fits comfortably on
+       most laptop screens without scrolling). */
     #game {
-      width: 800px;
-      height: 800px;
+      width: 520px;
+      height: 520px;
       margin: 0 auto;
     }
-    @media (max-width: 860px) {
+    @media (max-width: 760px) {
       #game {
-        width: min(800px, calc(100vw - 24px));
-        height: min(800px, calc(100vw - 24px));
+        width: min(520px, calc(100vw - 24px));
+        height: min(520px, calc(100vw - 24px));
       }
     }
   </style>
@@ -40,11 +48,17 @@
 <body>
   <div class="site-shell">
     <header class="site-header">
-      <h1>Five in a Row</h1>
+      <div class="brand">
+        <span class="seal" aria-hidden="true">五子</span>
+        <div class="brand-text">
+          <h1>Five in a Row</h1>
+          <span class="subtitle">Wǔ Zǐ Qí · 五子棋</span>
+        </div>
+      </div>
       <nav>
         <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/privacy">Privacy</a>
+        <a href="/about.html">About</a>
+        <a href="/privacy.html">Privacy</a>
       </nav>
     </header>
 
@@ -52,7 +66,7 @@
       <!-- LEFT SIDEBAR AD -->
       <aside class="ad-slot ad-sidebar" aria-label="Advertisement">
         <!--
-          Google AdSense — Left Sidebar (Skyscraper 160×600)
+          Google AdSense — Left Sidebar (Medium Rectangle 300×250)
           AFTER approval:
             1. Replace ca-pub-XXXXXXXXXXXXXXXX with your Publisher ID
             2. Replace 1234567890 with your Ad Slot ID
@@ -60,31 +74,80 @@
         -->
         <!--
         <ins class="adsbygoogle"
-             style="display:block; width:160px; height:600px"
+             style="display:block; width:300px; height:250px"
              data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
              data-ad-slot="1234567890"></ins>
         -->
-        <div class="ad-placeholder">Ad slot (160×600)</div>
+        <div class="ad-placeholder">Ad slot (300×250)</div>
       </aside>
 
       <!-- GAME -->
       <section class="game-area">
-        <div id="game"></div>
+        <div class="board-frame">
+          <div id="game"></div>
+        </div>
+        <!-- Turn indicator + control buttons -->
+        <div class="game-controls">
+          <span id="turn-indicator" class="turn-indicator">Your turn</span>
+          <button type="button" id="new-game" class="new-game-btn">New Game</button>
+        </div>
         <p class="caption">You are White. Place stones by clicking an intersection. Get five in a row to win.</p>
+
+        <!-- How to play + game origin (English, AdSense-friendly content). -->
+        <!-- Two-column row that holds both articles side by side. -->
+        <div class="game-info-row">
+          <article class="game-info">
+            <h2>How to Play</h2>
+            <p>
+              Five in a Row (also known as <em>Gomoku</em> or <em>Wuziqi</em>) is a classic two-player
+              strategy game played on a 15 × 15 grid. The goal is simple: be the first player to line up
+              five of your stones in an unbroken row — horizontally, vertically, or diagonally.
+            </p>
+            <ul>
+              <li><strong>Take turns.</strong> White moves first by default, and the computer plays Black. Each turn, place one stone on any empty intersection.</li>
+              <li><strong>Build lines.</strong> Stones stay where they are placed — there is no moving or capturing, so winning is about reading the board and planning ahead.</li>
+              <li><strong>Win.</strong> The first side to complete five in a row wins the game. Watch out for open fours and double-threes; the AI looks for them, and so should you.</li>
+              <li><strong>Reset.</strong> When the game ends, the board clears automatically so you can play again.</li>
+            </ul>
+          </article>
+
+          <article class="game-info">
+            <h2>Where the Game Comes From</h2>
+            <p>
+              Five in a Row has roots that stretch back more than two thousand years. It grew out of
+              <em>Weiqi</em> (Go), one of the oldest board games still played today. Players in ancient
+              China noticed that lining up five stones on a Go board could be a satisfying contest in its
+              own right, separate from surrounding territory.
+            </p>
+            <p>
+              The earliest written references appear in Chinese texts from the Tang and Song dynasties
+              (roughly the 7th–13th centuries), where the activity is described alongside other board
+              games of the period. Its modern name, <em>Wuziqi</em> (五子棋, “five-piece chess”), comes
+              from that era.
+            </p>
+            <p>
+              The game was carried to Japan sometime between the 8th and 12th centuries, where it became
+              known as <em>Gomoku</em> (五目, “five stones”) and developed formal rules. From there it
+              spread westward in the late 19th century under the name “Gobang,” and reached Europe and
+              the Americas as a popular paper-and-pencil pastime before becoming a fixture of online
+              play.
+            </p>
+          </article>
+        </div>
       </section>
 
       <!-- RIGHT SIDEBAR AD -->
       <aside class="ad-slot ad-sidebar" aria-label="Advertisement">
         <!--
-          Google AdSense — Right Sidebar (Skyscraper 160×600, mirror of left)
+          Google AdSense — Right Sidebar (Medium Rectangle 300×250, mirror of left)
         -->
         <!--
         <ins class="adsbygoogle"
-             style="display:block; width:160px; height:600px"
+             style="display:block; width:300px; height:250px"
              data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
              data-ad-slot="0987654321"></ins>
         -->
-        <div class="ad-placeholder">Ad slot (160×600)</div>
+        <div class="ad-placeholder">Ad slot (300×250)</div>
       </aside>
     </main>
 
@@ -105,7 +168,12 @@
     </section>
 
     <footer class="site-footer">
-      <p>© 2026 Five in a Row · Built with vanilla JS · <a href="/about">About</a> · <a href="/privacy">Privacy Policy</a></p>
+      <div class="seal-line">
+        <span class="seal-dot"></span>
+        <span>Five in a Row · 五子棋</span>
+        <span class="seal-dot"></span>
+      </div>
+      <div>© 2026 · Built with vanilla JS · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy Policy</a></div>
     </footer>
   </div>
 
@@ -115,15 +183,74 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="/zebragomoku.min.js"></script>
   <script>
-    $(document).ready(function() {
-      new $.gomoku($('#game'), {
-        ai_first: null,
-        board_size: 15,
-        endgame: function(computer_wins) {
-          alert('You ' + (computer_wins ? 'lost' : 'won') + '!');
-        }
+    /* Wraps the gomoku plugin so we can re-init the board on demand.
+       Keeps the plugin options identical to the original index.html. */
+    (function () {
+      var gameEl  = document.getElementById('game');
+      var turnInd = document.getElementById('turn-indicator');
+      var newBtn  = document.getElementById('new-game');
+      var disabled = false;
+
+      function startGame() {
+        // Wipe the board DOM and re-instantiate the plugin.
+        $(gameEl).empty();
+        disabled = false;
+        // 50/50 who moves first: false → player first, true → AI first.
+        // Plain boolean here so the plugin takes the deterministic branch
+        // (avoids any operator-precedence surprises with `null`).
+        var playerFirst = Math.random() < 0.5;
+        turnInd.textContent = playerFirst ? 'Your turn' : 'Computer thinking…';
+        turnInd.classList.remove('lost', 'won');
+        turnInd.classList.toggle('thinking', playerFirst);
+        new $.gomoku($(gameEl), {
+          ai_first: playerFirst,
+          board_size: 15,
+          endgame: function (computer_wins) {
+            disabled = true;
+            if (computer_wins) {
+              turnInd.textContent = 'You lost!';
+              turnInd.classList.remove('thinking');
+              turnInd.classList.add('lost');
+              alert('You lost!');
+            } else {
+              turnInd.textContent = 'You won!';
+              turnInd.classList.remove('thinking');
+              turnInd.classList.add('won');
+              alert('You won!');
+            }
+          }
+        });
+      }
+
+      // The plugin toggles its own click handler per cell, so we can't
+      // tap into a 'placing' event portably. Instead, observe clicks on
+      // the board and toggle the indicator text/colour.
+      $(gameEl).on('click', 'td', function () {
+        if (disabled) return;
+        // Wait a tick so the plugin sets `is_player_turn = false` first.
+        setTimeout(function () {
+          // If the click landed on an empty cell, the AI will answer;
+          // we just flip the label.
+          turnInd.textContent = 'Computer thinking…';
+          turnInd.classList.remove('thinking');
+        }, 0);
       });
-    });
+      // Observe board mutations to detect when AI has placed a stone.
+      var lastCellCount = 0;
+      setInterval(function () {
+        var filled = $(gameEl).find('td[class^="p"]').length;
+        if (filled !== lastCellCount) {
+          lastCellCount = filled;
+          if (!disabled && turnInd.textContent === 'Computer thinking…') {
+            turnInd.textContent = 'Your turn';
+            turnInd.classList.add('thinking');
+          }
+        }
+      }, 200);
+
+      newBtn.addEventListener('click', startGame);
+      startGame();
+    })();
   </script>
 
   <!-- ====================================================================== -->

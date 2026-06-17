@@ -1,10 +1,11 @@
 #zebraGomoku {
     width: 100%;
     height: 100%;
-    border: 5px solid #000;
+    border: 3px solid #8b5a2b;
     background: #2C9A2C;
     border-collapse: collapse;
     table-layout: fixed;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
 }
 
 #zebraGomoku td {
@@ -26,12 +27,28 @@
 }
 
 #zebraGomoku td.p0:after {
-    background: radial-gradient(circle at 25% 25%, #FFF, #D0D0D0);
-    box-shadow: 0px 0px 5px 0px #222;
+    /* White stone — bright top-left highlight + cool dark shading on the
+       bottom edge + soft drop shadow to lift the piece off the board. */
+    background:
+      radial-gradient(circle at 30% 28%, #ffffff 0%, #f4f4f4 18%, #d8d8d8 55%, #b6b6b6 88%, #9c9c9c 100%);
+    box-shadow:
+      inset -2px -3px 4px rgba(0, 0, 0, 0.18),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.9),
+      1px 2px 3px rgba(0, 0, 0, 0.35),
+      2px 4px 8px rgba(0, 0, 0, 0.22);
 }
 
 #zebraGomoku td.p1:after {
-    background: radial-gradient(circle at 25% 25%, #303030, #000);
-    box-shadow: 0px 0px 2px 0px #222;
+    /* Black stone — twin highlights (one large soft, one small bright) +
+       deep outer rim + strong drop shadow for a polished obsidian feel. */
+    background:
+      radial-gradient(circle at 32% 28%, #6e6e6e 0%, #4a4a4a 12%, #2a2a2a 38%, #141414 72%, #000000 100%),
+      radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 14%);
+    background-blend-mode: screen, normal;
+    box-shadow:
+      inset -2px -3px 4px rgba(0, 0, 0, 0.85),
+      inset 1px 1px 2px rgba(255, 255, 255, 0.18),
+      1px 2px 3px rgba(0, 0, 0, 0.55),
+      2px 4px 9px rgba(0, 0, 0, 0.4);
 }
 
