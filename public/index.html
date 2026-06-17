@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Five in a Row — Play Gomoku Online Free</title>
+  <meta name="description" content="Play Five in a Row (Gomoku) free in your browser. Challenge a built-in AI on a 15×15 board. No download required.">
+  <link rel="canonical" href="https://five-in-a-row.example.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Five in a Row — Play Gomoku Online Free">
+  <meta property="og:description" content="Play classic Gomoku in your browser against an AI opponent. Free, no sign-up.">
+  <meta property="og:image" content="https://five-in-a-row.example.com/screenshot.png">
+  <meta property="og:url" content="https://five-in-a-row.example.com/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Five in a Row — Play Gomoku Online Free">
+  <meta name="twitter:description" content="Play classic Gomoku in your browser against an AI opponent.">
+  <meta name="twitter:image" content="https://five-in-a-row.example.com/screenshot.png">
+
+  <link rel="stylesheet" href="/site.css">
+  <link rel="stylesheet" href="/zebragomoku.css">
+  <style>
+    /* Reserve square canvas; on narrow screens scale 1:1 with viewport. */
+    #game {
+      width: 800px;
+      height: 800px;
+      margin: 0 auto;
+    }
+    @media (max-width: 860px) {
+      #game {
+        width: min(800px, calc(100vw - 24px));
+        height: min(800px, calc(100vw - 24px));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <h1>Five in a Row</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <!-- LEFT SIDEBAR AD -->
+      <aside class="ad-slot ad-sidebar" aria-label="Advertisement">
+        <!--
+          Google AdSense — Left Sidebar (Skyscraper 160×600)
+          AFTER approval:
+            1. Replace ca-pub-XXXXXXXXXXXXXXXX with your Publisher ID
+            2. Replace 1234567890 with your Ad Slot ID
+            3. Uncomment the <ins> block below AND the script block in the page footer
+        -->
+        <!--
+        <ins class="adsbygoogle"
+             style="display:block; width:160px; height:600px"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="1234567890"></ins>
+        -->
+        <div class="ad-placeholder">Ad slot (160×600)</div>
+      </aside>
+
+      <!-- GAME -->
+      <section class="game-area">
+        <div id="game"></div>
+        <p class="caption">You are White. Place stones by clicking an intersection. Get five in a row to win.</p>
+      </section>
+
+      <!-- RIGHT SIDEBAR AD -->
+      <aside class="ad-slot ad-sidebar" aria-label="Advertisement">
+        <!--
+          Google AdSense — Right Sidebar (Skyscraper 160×600, mirror of left)
+        -->
+        <!--
+        <ins class="adsbygoogle"
+             style="display:block; width:160px; height:600px"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="0987654321"></ins>
+        -->
+        <div class="ad-placeholder">Ad slot (160×600)</div>
+      </aside>
+    </main>
+
+    <!-- BOTTOM AD -->
+    <section class="ad-slot ad-bottom" aria-label="Advertisement">
+      <!--
+        Google AdSense — Bottom Banner (responsive, full-width)
+      -->
+      <!--
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-format="auto"
+           data-full-width-responsive="true"
+           data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+           data-ad-slot="1122334455"></ins>
+      -->
+      <div class="ad-placeholder">Ad slot (responsive — Leaderboard / Banner)</div>
+    </section>
+
+    <footer class="site-footer">
+      <p>© 2026 Five in a Row · Built with vanilla JS · <a href="/about">About</a> · <a href="/privacy">Privacy Policy</a></p>
+    </footer>
+  </div>
+
+  <!-- ====================================================================== -->
+  <!-- Game scripts — DO NOT MODIFY. Verbatim from original index.html.       -->
+  <!-- ====================================================================== -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="/zebragomoku.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      new $.gomoku($('#game'), {
+        ai_first: null,
+        board_size: 15,
+        endgame: function(computer_wins) {
+          alert('You ' + (computer_wins ? 'lost' : 'won') + '!');
+        }
+      });
+    });
+  </script>
+
+  <!-- ====================================================================== -->
+  <!-- Google AdSense — global script (uncomment AFTER AdSense approval).      -->
+  <!-- ====================================================================== -->
+  <!--
+  <script async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+          crossorigin="anonymous"></script>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  -->
+</body>
+</html>

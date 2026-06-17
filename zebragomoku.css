@@ -1,0 +1,37 @@
+#zebraGomoku {
+    width: 100%;
+    height: 100%;
+    border: 5px solid #000;
+    background: #2C9A2C;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#zebraGomoku td {
+    width: 1%;
+    height: 1%;
+    border: 1px solid #000;
+    position: relative;
+}
+
+#zebraGomoku td:after {
+    content: " ";
+    color: green;
+    position: absolute;
+    left: 7.5%;
+    top: 7.5%;
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+}
+
+#zebraGomoku td.p0:after {
+    background: radial-gradient(circle at 25% 25%, #FFF, #D0D0D0);
+    box-shadow: 0px 0px 5px 0px #222;
+}
+
+#zebraGomoku td.p1:after {
+    background: radial-gradient(circle at 25% 25%, #303030, #000);
+    box-shadow: 0px 0px 2px 0px #222;
+}
+
