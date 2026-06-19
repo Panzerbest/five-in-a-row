@@ -1,6 +1,7 @@
 // Cloudflare Worker — Five in a Row
-// Routes clean URLs (/about, /privacy) to their .html files.
-// Everything else falls through to the static Assets binding.
+// Routes clean URLs (e.g. /about, /privacy, /terms) to their .html files.
+// Anything with an extension or trailing slash is left alone. Everything
+// else falls through to the static Assets binding.
 
 export default {
   async fetch(request, env) {
