@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://five-in-a-row.example.com/sitemap.xml
+Sitemap: https://gomoku.ccwu.cc/sitemap.xml

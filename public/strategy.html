@@ -3,14 +3,87 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Strategy Guide — Five in a Row (Gomoku)</title>
-  <meta name="description" content="A complete strategy guide for Gomoku / Wuziqi / Five in a Row. Learn openings, attack patterns, defense priorities, and the winning shapes used by strong players.">
-  <link rel="canonical" href="https://five-in-a-row.example.com/strategy">
+  <title>Gomoku Strategy Guide — Openings, VCF, Open Fours, Winning Patterns</title>
+  <meta name="description" content="A complete Gomoku (Five in a Row) strategy guide: 26 Renju openings, open three and open four patterns, VCF (Victory by Continuous Fours), double three attacks, defense priorities, and the classic Plum Blossom and Windmill winning shapes.">
+  <meta name="keywords" content="gomoku strategy, gomoku strategy guide, five in a row strategy, gomoku winning patterns, open four, closed four, open three, VCF, VCT, double three attack, double four, renju openings, free gomoku openings, hua yue opening, plum blossom gomoku, windmill attack, gomoku defense, how to win at gomoku, gomoku tips">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://gomoku.ccwu.cc/strategy">
 
-  <meta property="og:title" content="Gomoku Strategy Guide — Five in a Row">
-  <meta property="og:description" content="Openings, attack patterns, defense priorities, and winning shapes for Gomoku. From your first moves to VCF finishing lines.">
-  <meta property="og:url" content="https://five-in-a-row.example.com/strategy">
+  <meta property="og:title" content="Gomoku Strategy Guide — Openings, VCF, Open Fours, Winning Patterns">
+  <meta property="og:description" content="From Renju's 26 standard openings to VCF killing lines: open four, closed four, double three, plum blossom, windmill. A complete beginner-to-strong-player strategy guide for Gomoku / Five in a Row.">
+  <meta property="og:url" content="https://gomoku.ccwu.cc/strategy">
   <meta property="og:type" content="article">
+  <meta property="og:image" content="https://gomoku.ccwu.cc/screenshot.png">
+  <meta property="og:image:alt" content="Sample Gomoku board position illustrating open three and open four patterns from the strategy guide.">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gomoku Strategy Guide — Openings, VCF, Open Fours, Winning Patterns">
+  <meta name="twitter:description" content="Openings, attack patterns, defense priorities, and the winning shapes used by strong Gomoku players. Beginner to advanced.">
+  <meta name="twitter:image" content="https://gomoku.ccwu.cc/screenshot.png">
+
+  <!-- Structured data: Article + FAQ + Breadcrumbs. FAQ targets
+       common search queries (how to win at gomoku, what is VCF). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Gomoku Strategy Guide — Openings, VCF, Open Fours, Winning Patterns",
+        "description": "A complete beginner-to-strong-player strategy guide for Gomoku (Five in a Row): 26 Renju openings, VCF, open three, open four, defense priority ladder, and classic winning shapes.",
+        "author": { "@type": "Organization", "name": "Five in a Row" },
+        "publisher": { "@type": "Organization", "name": "Five in a Row" },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://gomoku.ccwu.cc/strategy" },
+        "image": "https://gomoku.ccwu.cc/screenshot.png",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gomoku.ccwu.cc/" },
+          { "@type": "ListItem", "position": 2, "name": "Strategy", "item": "https://gomoku.ccwu.cc/strategy" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is VCF in Gomoku?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "VCF stands for Victory by Continuous Fours. It is a forcing attack in which the attacker plays a chain of closed fours (each forcing the defender to block a specific square) until a winning shape — typically a four-and-three or double four — becomes unavoidable."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between an open three and a closed three?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An open three (·●●●·) has both ends empty and turns into an open four next move, which is uncounterable. A closed three (○●●●·) has one end blocked — opponent can stop it from becoming a four. Open threes are the foundation of every attacking sequence."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the 26 Renju openings?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Renju International Federation (RIF) defines 26 standard openings, named after celestial bodies — Han, Xi, Shu, Hua, Pu, Lan, Yin, Ming, and so on. They are split into straight (Black 2 on the same row or column as Black 1) and diagonal (Black 2 diagonally placed) variants. Common beginner-friendly picks are Hua-Yue (花月) for attack-focused play and Shu-Xing (疏星) for a balanced game."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I win at Gomoku against an AI?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Focus on open threes — every one becomes an open four next turn, which is uncounterable. Build double threes whenever you can, so the opponent can only block one. When setting up attack lines, prefer the central 5x5 region in the opening so each stone contributes to many lines, and convert forcing patterns into VCF chains."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <link rel="stylesheet" href="/site.css">
   <style>
