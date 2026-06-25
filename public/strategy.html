@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Strategy Guide — Five in a Row (Gomoku)</title>
+  <meta name="description" content="A complete strategy guide for Gomoku / Wuziqi / Five in a Row. Learn openings, attack patterns, defense priorities, and the winning shapes used by strong players.">
+  <link rel="canonical" href="https://five-in-a-row.example.com/strategy">
+
+  <meta property="og:title" content="Gomoku Strategy Guide — Five in a Row">
+  <meta property="og:description" content="Openings, attack patterns, defense priorities, and winning shapes for Gomoku. From your first moves to VCF finishing lines.">
+  <meta property="og:url" content="https://five-in-a-row.example.com/strategy">
+  <meta property="og:type" content="article">
+
+  <link rel="stylesheet" href="/site.css">
+  <style>
+    /* Strategy page: tighter typography, full-width article, fix
+       pre/code so the ASCII diagrams align and remain readable. */
+    main.layout { grid-template-columns: 1fr; }
+    .article {
+      max-width: 880px;
+      padding: 32px 40px;
+    }
+    .article h1 { font-size: 30px; margin-bottom: 6px; }
+    .article .subtitle {
+      color: var(--ink-soft);
+      font-size: 14px;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .article h2 {
+      margin-top: 1.8em;
+      font-size: 24px;
+      border-bottom: 1px solid var(--paper-edge);
+      padding-bottom: 6px;
+    }
+    .article h3 {
+      font-size: 19px;
+      color: var(--vermilion-dk);
+      margin-top: 1.4em;
+    }
+    .article p, .article li { line-height: 1.75; }
+    .article ul, .article ol { padding-left: 24px; }
+    .article pre {
+      background: rgba(120, 70, 25, 0.06);
+      border: 1px solid var(--paper-edge);
+      border-radius: 4px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--ink-strong);
+      white-space: pre;
+    }
+    .article code {
+      background: rgba(120, 70, 25, 0.08);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 0.92em;
+      color: var(--vermilion-dk);
+    }
+    .article pre code { background: none; padding: 0; color: inherit; }
+    .article table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 15px;
+    }
+    .article th, .article td {
+      border: 1px solid var(--paper-edge);
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .article th { background: rgba(120, 70, 25, 0.08); color: var(--ink-strong); }
+    .article blockquote {
+      margin: 14px 0;
+      padding: 10px 16px;
+      border-left: 3px solid var(--vermilion);
+      background: rgba(184, 51, 43, 0.06);
+      color: var(--ink-soft);
+      font-style: italic;
+    }
+    .toc {
+      background: rgba(60, 30, 10, 0.04);
+      border: 1px solid var(--paper-edge);
+      border-radius: 4px;
+      padding: 14px 20px;
+      margin-bottom: 28px;
+    }
+    .toc h2 { font-size: 18px; margin: 0 0 8px; border: none; padding: 0; }
+    .toc ol { columns: 2; column-gap: 30px; }
+    .toc li { margin: 4px 0; break-inside: avoid; }
+    .toc a { color: var(--vermilion-dk); }
+2   @media (max-width: 760px) {
+      .article { padding: 22px 18px; }
+      .toc ol { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="brand">
+        <span class="seal" aria-hidden="true">五子</span>
+        <div class="brand-text">
+          <h1>Five in a Row</h1>
+          <span class="subtitle">Wǔ Zǐ Qí · 五子棋</span>
+        </div>
+      </div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/strategy.html">Strategy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <article class="article">
+        <h1>Gomoku / Five in a Row — Strategy Guide</h1>
+        <p class="subtitle">A complete guide for players who want to improve at Gomoku</p>
+
+        <nav class="toc" aria-label="Table of contents">
+          <h2>Contents</h2>
+          <ol>
+            <li><a href="#overview">1. Game Overview</a></li>
+            <li><a href="#terms">2. Core Terms</a></li>
+            <li><a href="#openings">3. Opening Theory</a></li>
+            <li><a href="#attack">4. Attacking</a></li>
+            <li><a href="#defense">5. Defending</a></li>
+            <li><a href="#shapes">6. Classic Shapes</a></li>
+            <li><a href="#winning">7. Winning Cheat-Sheet</a></li>
+            <li><a href="#mindset">8. Play & Mindset</a></li>
+            <li><a href="#variants">9. Rules & Variants</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="overview">1. Game Overview</h2>
+        <p>Gomoku (also called <em>Five in a Row</em>, <em>Wuziqi</em> 五子棋, or <em>Gobang</em>) is a two-player abstract strategy game played on a 15×15 board. Black moves first. Players alternate placing a stone of their own color on any empty intersection. The first to line up <strong>five stones in a continuous row</strong> — horizontally, vertically, or diagonally — wins.</p>
+
+        <h3>Board coordinates</h3>
+        <pre><code>     A B C D E F G H I J K L M N O
+   ┌───────────────────────────────┐
+15 │ . . . . . . . . . . . . . . . │
+14 │ . . . . . . . . . . . . . . . │
+13 │ . . . . . . . . . . . . . . . │
+12 │ . . . . . . . . . . . . . . . │
+11 │ . . . . . . . . . . . . . . . │
+10 │ . . . . . . . . . . . . . . . │
+ 9 │ . . . . . . . . . . . . . . . │
+ 8 │ . . . . . . . ● . . . . . . . │  ← tengen (H8)
+ 7 │ . . . . . . . . . . . . . . . │
+ 6 │ . . . . . . . . . . . . . . . │
+ 5 │ . . . . . . . . . . . . . . . │
+ 4 │ . . . . . . . . . . . . . . . │
+ 3 │ . . . . . . . . . . . . . . . │
+ 2 │ . . . . . . . . . . . . . . . │
+ 1 │ . . . . . . . . . . . . . . . │
+   └───────────────────────────────┘</code></pre>
+        <p>The filled stone (●) marks <strong>tengen</strong>, the exact board center.</p>
+
+        <h2 id="terms">2. Core Terms</h2>
+        <table>
+          <thead><tr><th>Term</th><th>Meaning</th><th>Diagram</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Open four</strong></td><td>Four in a row with both ends empty — uncounterable.</td><td><code>·●●●●·</code></td></tr>
+            <tr><td><strong>Closed four</strong></td><td>Four in a row with one end blocked — opponent can defend.</td><td><code>○●●●●·</code></td></tr>
+            <tr><td><strong>Open three</strong></td><td>Three with both ends empty — turns into an open four next turn.</td><td><code>·●●●·</code></td></tr>
+            <tr><td><strong>Sleeping three</strong></td><td>Three with one end blocked.</td><td><code>○●●●·</code></td></tr>
+            <tr><td><strong>Open two</strong></td><td>Two with both ends empty.</td><td><code>·●●·</code></td></tr>
+            <tr><td><strong>Double threat</strong></td><td>A move that creates two threats at once — opponent cannot answer both.</td><td>—</td></tr>
+            <tr><td><strong>VCF</strong></td><td><em>Victory by Continuous Fours</em>: chain of forced fours to win.</td><td>—</td></tr>
+            <tr><td><strong>VCT</strong></td><td><em>Victory by Continuous Threats</em>: chain of open-threes and fours to win.</td><td>—</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="openings">3. Opening Theory</h2>
+
+        <h3>3.1 Straight vs Diagonal</h3>
+        <p>Black's second move decides the opening type:</p>
+        <pre><code>Straight opening        Diagonal opening
+     H                      H
+     │                      ╲
+  ──●──●──              ──●─╲──
+     │                      ●</code></pre>
+        <ul>
+          <li><strong>Straight</strong> — Black 2 sits on the same row or column as Black 1. Lines stay linear.</li>
+          <li><strong>Diagonal</strong> — Black 2 sits diagonally. More variations, more room to grow.</li>
+        </ul>
+
+        <h3>3.2 The 26 Renju Openings</h3>
+        <p>The Renju International Federation (RIF) defines 26 standard openings, named after celestial bodies:</p>
+        <pre><code>Opening        Black 2 position       Character
+───────────────────────────────────────────────
+Han (寒星)      straight — adjacent   tight defense
+Xi  (溪星)      diagonal — near       balanced
+Shu (疏星)      diagonal — far        open, many lines
+Hua (花月)      straight              Black-favored, often winning
+Pu  (浦月)      straight              aggressive Black attack
+Lan (嵐星)      diagonal              defensive White
+Yin (银月)      diagonal              balanced
+Ming (明星)    straight              open and complex
+... 18 more in the official RIF list</code></pre>
+        <blockquote><strong>Tip for new players:</strong> start with <em>Hua-yue</em> if you want to feel attacking, <em>Shu-xing</em> if you want balance.</blockquote>
+
+        <h3>3.3 Three Opening Principles</h3>
+        <pre><code>Principle 1 — Control the center
+┌───────────────────────────┐
+│                           │
+│                           │
+│        ┌─────┐            │
+│        │Best │            │  First 5 moves should land in
+│        │ ● ● │            │  the central 5×5 area
+│        └─────┘            │
+│                           │
+└───────────────────────────┘
+
+Principle 2 — Build directions
+  One stone, many lines — each stone should belong to several lines
+
+  Good move ✅              Bad move ❌
+    ╲│╱                     │
+  ──●──     crosses form     ●───      one direction only
+    ╱│╲                     │
+
+Principle 3 — Attack and defend together
+  Every move should both create a threat of your own and limit the opponent's</code></pre>
+
+        <h2 id="attack">4. Attacking</h2>
+
+        <h3>4.1 Open Three — the foundation of attack</h3>
+        <p>An open three is the most important attacking shape, because it becomes an open four next move — uncounterable.</p>
+        <pre><code>Forms of open three:
+
+① Straight:        ·●●●·
+   →  Either end completes an open four
+
+② Jump:             ·●·●●·    or   ·●●·●·
+   →  Filling the gap turns it into an open four
+
+③ Combined (one stone, two threes):
+        ●
+        │
+   ·─●─·─●─·
+        │
+        ●
+   One move forms two open threes — opponent can only block one!</code></pre>
+
+        <h3>4.2 Closed Four — never ignore</h3>
+        <p>It looks blockable, but it is the engine of <em>VCF</em>.</p>
+        <pre><code>Forms of closed four:
+
+① Direct:        ○●●●●·    →  Opponent must block the open end
+   or:           ·●●●●○    →  Opponent must block the other end
+
+② Jump:          ●·●●●     →  Opponent must fill the gap (·)
+
+Key idea: a closed four is "absolute initiative"
+  You play four → opponent defends → you play four → opponent defends
+  Repeat until you set up double-four or four-and-three → win!
+
+VCF example:
+
+  Move 1: four        Move 2: four        Move 3: four + open three
+  ──────────         ──────────          ────────────
+  ○●·●●·            ○●●●●··             ○●●●●○·
+       ↓ fill           ↓ block             ↓
+  ○●●●●○            ○●●●●○··             forms open three — win!
+  forced block        forced block</code></pre>
+
+        <h3>4.3 One-stone double threats — the finishing blow</h3>
+        <pre><code>【Double open three】
+
+     ·
+     │
+  ·─●─·         Black plays the center → a horizontal
+     │            AND a vertical open three at once
+     ·            White can only block one → other becomes open four → Black wins
+
+【Four + open three】
+
+  ●●●●·         closed four (forced defense)
+     +
+    ·●●·          open three (also threatening)
+
+  One move creates both → White can't cover both → Black wins
+
+【Double closed four】
+
+  ·●·●● → four     One stone forms two closed fours
+     +              White can only block one
+  ●→ four            the other becomes five → Black wins</code></pre>
+
+        <h3>4.4 A worked VCF line</h3>
+        <pre><code>Starting position:
+    A B C D E F G H
+  ┌─────────────────┐
+8 │ . . . . . . . . │
+7 │ . . . ● . . . . │
+6 │ . . ● . ● . . . │
+5 │ . . . . . . . . │
+4 │ . . ● . . . . . │
+3 │ . . . . . . . . │
+  └─────────────────┘
+
+VCF attack line:
+  Step 1: Black plays E7 → four (B7→E7) → White blocks B7
+  Step 2: Black plays C4 → four (C4→C6) → White blocks C6
+  Step 3: Black plays D5 → four + open three → win!
+
+The point:
+  Every move is a four → opponent has no choice → until the position
+  becomes undefendable</code></pre>
+
+        <h2 id="defense">5. Defending</h2>
+
+        <h3>5.1 Defense priority ladder</h3>
+        <pre><code>Threat level          How urgent?             Notes
+──────────────────────────────────────────────────────────────
+Open four             ★★★★★ MUST BLOCK       Once made, already lost
+Closed four           ★★★★★ MUST BLOCK       Becomes five next move
+Double open three     ★★★★  MUST BLOCK       One-move loss
+Four + open three     ★★★★  precise block    Answer the four first
+Open three            ★★★   should block     Else turns into open four
+Jump three            ★★★   keep an eye on   Could become open three
+Open two              ★★    watch            latent potential
+Sleeping three/two    ★     low priority      track, don't panic</code></pre>
+
+        <h3>5.2 Where to block an open three</h3>
+        <p>When the opponent has an open three, which end do you block?</p>
+        <pre><code>Opponent's open three:
+  ·○○○·
+
+Where to put your stone — three heuristics:
+  ① Block YOUR development side → pick the end that also helps your own stones
+  ② Cut their connections    → pick the end that disconnects them from neighbours
+  ③ Control a key square     → pick the square they may later need
+
+Example:
+
+     A B C D E F G
+  ┌─────────────────┐
+5 │ . . ○ . . . . │
+4 │ . . . . . . . │
+3 │ . ● ○ ○ ○ . . │  ← White's open three
+2 │ . . . . . . . │
+1 │ . ● . . . . . │
+  └─────────────────┘
+
+  Black should block at C3 (the left end):
+  ✅ simultaneously connects vertically to B1 and B3
+  ✅ cuts off White's space in the lower-left
+  ❌ if Black blocked G3 instead, White still has play on the left</code></pre>
+
+        <h3>5.3 Attack-as-defense (counter-attack)</h3>
+        <pre><code>Pure defense (passive):       Counter-attack (active):
+
+  Opponent open three         Opponent open three
+     → you defend                → you play a closed four!
+  Opponent open three again    Opponent must answer your four
+     → you defend again         You adjust the position in your favour
+  ... you're running out       You regain the initiative
+
+  ╔══════════════════════════════════╗
+  ║  If you can attack, do it!       ║
+  ║  A closed four is absolute       ║
+  ║  initiative — it interrupts the  ║
+  ║  opponent's rhythm. Even when   ║
+  ║  defending, pick the most        ║
+  ║  active square you can.          ║
+  ╚══════════════════════════════════╝</code></pre>
+
+        <h2 id="shapes">6. Classic Shapes</h2>
+
+        <h3>6.1 The palette at a glance</h3>
+        <pre><code>Attacking shapes
+─────────────────────────────
+Open four    ·●●●●·   uncounterable, wins
+Closed four  ○●●●●·   one side blocked
+Open three   ·●●●·    both sides open
+Sleep three  ○●●●·    one side blocked
+Open two     ·●●·     both sides open
+Sleep two    ○●●·     one side blocked
+
+Special "must-kill" shapes
+─────────────────────────────
+Double four     one stone makes two fours
+Four + open 3   one stone, four AND open three
+Double open 3   one stone, two open threes</code></pre>
+
+        <h3>6.2 The power of the jump</h3>
+        <p>Jumping instead of connecting gives your lines more variations.</p>
+        <pre><code>Connected vs jumped:
+
+  Straight three   ●●●·        only two extensions
+  Jumped three     ●·●·        same three, but more flexibility
+
+  Straight four    ●●●●·       extends only from one end
+  Jumped four      ●●·●        the gap fills and you win!
+
+Building from a jump:
+  Jumped three ●·●·  →  fill the gap → ●●●· (open three)
+  Jumped three ●·●·  →  extend on an end → ●·●●· (also an open three)
+  Two paths — harder to read</code></pre>
+
+        <h3>6.3 The "Cross four"</h3>
+        <pre><code>      ●
+      │
+  ·─●─·─●─·
+      │
+      ●
+
+With four Black stones forming a plus, the centre gap completes:
+
+      ●
+      │
+  ·─●─●─●─·   → horizontal: open four
+      │
+      ●
+
+The vertical runs three stones too — opponent cannot cover both — win</code></pre>
+
+        <h3>6.4 The "Plum blossom"</h3>
+        <pre><code>      ●
+     ╱│╲
+    ● · ●
+     ╲│╱
+      ●
+
+Four stones around one empty square. Fill the centre:
+  → forms an open three in four directions
+  → whichever way they block, the others become open fours
+  → guaranteed kill</code></pre>
+
+        <h3>6.5 The "Windmill"</h3>
+        <pre><code>  ● . .
+  │  ╲
+  .  .  .
+  │  ╱
+  ● . ●
+
+Switching threat direction by continuous closed fours, like a windmill spinning:
+  Step 1: vertical four   → White blocks up
+  Step 2: diagonal four   → White blocks diagonal
+  Step 3: horizontal four → White blocks right
+  Step 4: the other diagonal becomes an open three → win</code></pre>
+
+        <h2 id="winning">7. Winning Cheat-Sheet</h2>
+
+        <h3>7.1 Absolute kills (uncounterable)</h3>
+        <pre><code>Shape             Diagram
+────────────────────────────────
+Open four         ·●●●●·
+Double four       ●●·● + ●●·●
+Four + open 3     ●●●●· + ·●●·
+Double open 3     two ·●●· meetings</code></pre>
+
+        <h3>7.2 Defense-priority mnemonic</h3>
+        <pre><code>  ╔═══════════════════════════════╗
+  ║  Open four first, closed next, ║
+  ║  Closed four — never delay,    ║
+  ║  Two threes appearing together ║
+  ║  means the position is lost.   ║
+  ║  Counter-attack to seize it.   ║
+  ╚═══════════════════════════════╝</code></pre>
+
+        <h3>7.3 One-question decision tree</h3>
+        <pre><code>Q: Where do I play?
+
+  ① Do I have an open four?       → Play it. Win.
+  ② Does opponent have open four? → One square only. Block it.
+  ③ Do I have four + open three?  → Play the four. Win.
+  ④ Does opp have four + open 3 ? → Block the four first, then the three.
+  ⑤ Do I have double open three?  → Play it. Win.
+  ⑥ Does opp have double open 3 ? → Usually lost. Look for a counter.
+  ⑦ Do I have an open three?      → Extend to an open four.
+  ⑧ Does opp have open three?     → Block a square that also attacks.
+  ⑨ Nothing happening?            → Make a "two" or join existing stones.</code></pre>
+
+        <h2 id="mindset">8. Play & Mindset</h2>
+
+        <h3>8.1 First-player vs Second-player</h3>
+        <pre><code>First-player (Black):           Second-player (White):
+┌─────────────────┐              ┌─────────────────┐
+│ go on offense    │              │ play solid defense│
+│ create threats   │              │ wear down Black's │
+│              early│              │         initiative│
+│ finish fast      │              │ wait for a chance  │
+│ use the move 1   │              │ to counter-attack │
+│ advantage        │              │ complicate things │
+└─────────────────┘              └─────────────────┘</code></pre>
+
+        <h3>8.2 Stone efficiency — one stone, many uses</h3>
+        <pre><code>Inefficient:                     Efficient:
+
+  . . .                          . . .
+  . ● .     one direction         ╲ │ ╱
+  . . .                          . ● .
+                                  ╱ │ ╲
+                              four directions!
+
+Rule: the more lines a stone belongs to, the more useful it is.
+     → prefer intersections where many lines meet
+     → center beats corner (more information per stone)</code></pre>
+
+        <h3>8.3 Building — from shapeless to sharp</h3>
+        <p>"Building" means placing a stone without making an immediate threat, but improving future attacking potential.</p>
+        <pre><code>Good build:                      Bad build:
+
+  . ● .                          ● . . . .
+  . . .         existing stones  . . . . .    lonely group
+  . . ● .       in the same line . . . . .    no coordination
+                                  . . . .
+
+  Far apart but on the same line   spread out, not talking to each other</code></pre>
+
+        <h3>8.4 Common mistakes</h3>
+        <pre><code>Mistake 1 — Only watching your own plans
+  →  Every move should also check whether the opponent has a hidden kill
+
+Mistake 2 — Random closed fours
+  →  Closed fours are ammunition for VCF — spend them only on the line
+
+Mistake 3 — Grudging pure defense
+  →  When you're losing, look for the counter-attack; pure defense digs deeper
+
+Mistake 4 — Ignoring diagonals
+  →  Four directions are equal: beginners often play only horizontal/vertical,
+     then get killed by a diagonal three they didn't notice</code></pre>
+
+        <h2 id="variants">9. Rules & Variants</h2>
+
+        <h3>9.1 Renju (professional rules)</h3>
+        <p>To balance Black's first-move advantage, tournament rules restrict Black:</p>
+        <pre><code>Restriction        What it forbids
+───────────────────────────────────────────────
+Double-three       Black can't make two open threes
+Double-four        Black can't make two fours (incl. closed fours)
+Overline           Black can't line up six or more stones
+White: none        White has no restrictions
+
+Example — double-three restriction:
+
+      ·
+      │
+   ·─×─·     Black cannot play × (it would make two open threes)
+      │
+      ·
+
+White can use these restrictions as a tactic ("forcing-forbidden" play)
+to push Black into the forbidden square.</code></pre>
+
+        <h3>9.2 Swap2 opening</h3>
+        <p>A modern opening used to reduce the first-move advantage:</p>
+        <pre><code>Flow:
+  Step 1: Player A places 3 stones (two Black, one White)
+  Step 2: Player B chooses:
+    ① Take Black and play the position as-is
+    ② Take White and swap colors
+    ③ Place 2 more (one Black, one White), then Player A picks color
+  Step 3: play normally with the chosen colors
+
+Why it helps: both players can avoid placing an extreme Black-favored shape
+             → closer to balanced.</code></pre>
+
+        <h3>9.3 Pro rules (open-source)</h3>
+        <pre><code>  Black 1 — must be tengen (centre)
+  Black 2 and 3 — must land in the central 5×5 region
+  After that — no restriction
+  Looser than Renju — best for intermediate-to-strong club play.</code></pre>
+
+        <hr>
+        <p style="color: var(--ink-soft); font-size: 14px;">
+          <em>This guide assumes standard 15×15 Gomoku rules with no Renju restrictions. Last updated: 2026-06.</em>
+        </p>
+
+        <p style="margin-top: 2em;"><a href="/">← Back to the game</a></p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="seal-line">
+        <span class="seal-dot"></span>
+        <span>Five in a Row · 五子棋</span>
+        <span class="seal-dot"></span>
+      </div>
+      <div>© 2026 · Built with vanilla JS · <a href="/about.html">About</a> · <a href="/strategy.html">Strategy</a> · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy Policy</a></div>
+    </footer>
+  </div>
+</body>
+</html>
